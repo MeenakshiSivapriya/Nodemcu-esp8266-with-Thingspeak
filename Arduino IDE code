@@ -1,0 +1,58 @@
+#include <ESP8266WiFi.h>
+#include <arduino.h>
+#include <ESP8266HTTPClient.h>
+WiFiClient client;
+
+String thingSpeakAddress= "http://api.thingspeak.com/update?";
+String writeAPIKey;
+String tsfield1Name;
+String request_string;
+const char* myKey = "e-vCNeSglqbgQOeob2Y2Cd1ldbl8zgCJDrpgJxXsUPx";
+
+HTTPClient http;
+DataToMaker event(myKey, "Daily_Alert");
+void setup()
+{
+  Serial.begin(115200);
+//pinMode(D0, OUTPUT); 
+//pinMode(D1, OUTPUT);
+    WiFi.disconnect();
+   WiFi.begin("<Your WiFi Name>");
+  while ((!(WiFi.status() == WL_CONNECTED)))
+{
+    delay(300);
+    Serial.println("Connecting...");
+ }
+}
+void loop()
+{
+    if (client.connect("api.thingspeak.com",80)) {
+
+    Serial.println("Connected!");
+      writeAPIKey = "key=JYLKR4WVJ5NPEPOC";
+      tsfield1Name = "&field1=10";
+      request_string = thingSpeakAddress;
+      request_string += "<Your WriteAPIKey here>";
+      request_string += "&";
+      request_string += "field1";
+      request_string += "=";
+      request_string += analogRead(A0); //The value to be sent to field1
+     if (analogRead(A0) > 800)
+   { 
+      writeAPIKey = "key=JYLKR4WVJ5NPEPOC";
+      tsfield1Name = "&field1=10";
+      request_string = thingSpeakAddress;
+      request_string += "key=";
+      request_string += "<Your WriteAPIKey here>";
+      request_string += "&";
+      request_string += "field2";
+      request_string += "=";
+      request_string += value;
+   }
+      http.begin(request_string);
+      http.GET();
+      http.end();
+      Serial.println("Done!");
+      }
+      
+
