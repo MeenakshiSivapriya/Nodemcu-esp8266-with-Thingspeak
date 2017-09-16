@@ -3,11 +3,11 @@
 #include <ESP8266HTTPClient.h>
 WiFiClient client;
 
-String thingSpeakAddress= "http://api.thingspeak.com/update?";
+String thingSpeakAddress= "youraddress";
 String writeAPIKey;
 String tsfield1Name;
 String request_string;
-const char* myKey = "e-vCNeSglqbgQOeob2Y2Cd1ldbl8zgCJDrpgJxXsUPx";
+const char* myKey = "yourkey
 
 HTTPClient http;
 DataToMaker event(myKey, "Daily_Alert");
@@ -29,7 +29,7 @@ void loop()
     if (client.connect("api.thingspeak.com",80)) {
 
     Serial.println("Connected!");
-      writeAPIKey = "key=JYLKR4WVJ5NPEPOC";
+      writeAPIKey = "key";
       tsfield1Name = "&field1=10";
       request_string = thingSpeakAddress;
       request_string += "<Your WriteAPIKey here>";
@@ -39,8 +39,8 @@ void loop()
       request_string += analogRead(A0); //The value to be sent to field1
      if (analogRead(A0) > 800)
    { 
-      writeAPIKey = "key=JYLKR4WVJ5NPEPOC";
-      tsfield1Name = "&field1=10";
+      writeAPIKey = "   ";
+      tsfield1Name = "  ";
       request_string = thingSpeakAddress;
       request_string += "key=";
       request_string += "<Your WriteAPIKey here>";
